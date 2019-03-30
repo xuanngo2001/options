@@ -44,4 +44,4 @@ expire_date=$2
 # Download.
     echo "Download ${url}"
     echo "  => ./${output_filename}"
-#    wget -q "${url}" -O "${output_filename}"
+    wget -q "${url}" -O "${output_filename}"

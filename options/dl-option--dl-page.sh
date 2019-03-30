@@ -31,10 +31,17 @@ expire_date=$2
 # Construct output_filename.
     base_dir=optionprices
         mkdir -p "${base_dir}"
+    
+    # If Sat or Sun, then set to Fri.
     date_string=$(date +"%Y-%m-%d")
+    day_of_week=$(date +%u)
+    if [ "${day_of_week}" -eq 6 ] || ["${day_of_week}" -eq 7 ]; then
+        date_string=$(date -d "last Friday" +"%Y-%m-%d")
+    fi
+    
     output_filename=${base_dir}/$(echo "${symbol}" | sed 's/%5E//')_${expire_date}__${date_string}.html
 
 # Download.
     echo "Download ${url}"
     echo "  => ./${output_filename}"
-    wget -q "${url}" -O "${output_filename}"
+#    wget -q "${url}" -O "${output_filename}"
